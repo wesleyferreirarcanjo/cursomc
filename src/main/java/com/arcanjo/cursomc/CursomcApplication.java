@@ -10,8 +10,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.arcanjo.cursomc.domain.Categoria;
+import com.arcanjo.cursomc.domain.Cidade;
+import com.arcanjo.cursomc.domain.Estado;
 import com.arcanjo.cursomc.domain.Produto;
 import com.arcanjo.cursomc.repositories.CategoriaRepository;
+import com.arcanjo.cursomc.repositories.CidadeRepository;
+import com.arcanjo.cursomc.repositories.EstadoRepository;
 import com.arcanjo.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -22,6 +26,12 @@ public class CursomcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -44,9 +54,23 @@ public class CursomcApplication implements CommandLineRunner{
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
-
+		
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		
+		Estado estado = new Estado(null, "Mina Gerais");
+		Estado estado2 = new Estado(null, "Sao Paulo");
+		
+		Cidade cidade = new Cidade(null, "campinas", estado2);
+		Cidade cidade2 = new Cidade(null, "sao paulo", estado2);
+		Cidade cidade3 = new Cidade(null, "uberlandia", estado);
+		
+		estado.getCidades().addAll(Arrays.asList(cidade3));
+		estado2.getCidades().addAll(Arrays.asList(cidade, cidade2));
+		
+		estadoRepository.saveAll(Arrays.asList(estado, estado2));
+		cidadeRepository.saveAll(Arrays.asList(cidade,cidade2,cidade3));
 		
 	}
 
