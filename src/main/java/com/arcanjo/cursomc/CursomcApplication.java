@@ -15,6 +15,7 @@ import com.arcanjo.cursomc.domain.Cidade;
 import com.arcanjo.cursomc.domain.Cliente;
 import com.arcanjo.cursomc.domain.Endereco;
 import com.arcanjo.cursomc.domain.Estado;
+import com.arcanjo.cursomc.domain.ItemPedido;
 import com.arcanjo.cursomc.domain.Pagamento;
 import com.arcanjo.cursomc.domain.PagamentoComBoleto;
 import com.arcanjo.cursomc.domain.PagamentoComCartao;
@@ -27,6 +28,7 @@ import com.arcanjo.cursomc.repositories.CidadeRepository;
 import com.arcanjo.cursomc.repositories.ClienteRepository;
 import com.arcanjo.cursomc.repositories.EnderecoRepository;
 import com.arcanjo.cursomc.repositories.EstadoRepository;
+import com.arcanjo.cursomc.repositories.ItemPedidoRepository;
 import com.arcanjo.cursomc.repositories.PagamentoRepository;
 import com.arcanjo.cursomc.repositories.PedidoRepository;
 import com.arcanjo.cursomc.repositories.ProdutoRepository;
@@ -57,6 +59,9 @@ public class CursomcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 
 	
@@ -125,6 +130,18 @@ public class CursomcApplication implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento, pagamento2));
 		
+		ItemPedido itemPedido = new ItemPedido(pedido1, p1, 0.00, 1, 2000.00);
+		ItemPedido itemPedido2 = new ItemPedido(pedido1, p3, 0.00, 2, 80.00);
+		ItemPedido itemPedido3 = new ItemPedido(pedido2, p2, 100.00, 1, 800.00);
+		
+		pedido1.getItens().addAll(Arrays.asList(itemPedido, itemPedido2));
+		pedido2.getItens().addAll(Arrays.asList(itemPedido2));
+		
+		p1.getItens().addAll(Arrays.asList(itemPedido));
+		p2.getItens().addAll(Arrays.asList(itemPedido3));
+		p3.getItens().addAll(Arrays.asList(itemPedido2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(itemPedido,itemPedido2,itemPedido3));
 		
 	}
 
