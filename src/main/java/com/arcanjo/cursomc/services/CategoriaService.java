@@ -1,5 +1,6 @@
 package com.arcanjo.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,5 +46,9 @@ public class CategoriaService {
 		}
 		
 		
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 }
