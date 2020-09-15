@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.arcanjo.cursomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 public class Cliente implements Serializable{
@@ -27,7 +28,10 @@ public class Cliente implements Serializable{
 	private Integer id;
 	
 	private String nome;
+	
+	@Column(unique = true)
 	private String email;
+	
 	private String CpfOuCnpj;
 	private Integer tipoCliente;
 	
@@ -38,7 +42,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name="telefone")
 	private Set<String> telefones = new HashSet<String>();
 	
-	@JsonBackReference
+
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
