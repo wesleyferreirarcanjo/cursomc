@@ -30,7 +30,7 @@ public class PedidoResource {
 		Pedido obj = pedidoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) throws IllegalArgumentException, IllegalAccessException{
 		obj = pedidoService.insert(obj);
