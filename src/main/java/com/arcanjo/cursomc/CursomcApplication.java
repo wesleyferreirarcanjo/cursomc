@@ -2,9 +2,12 @@ package com.arcanjo.cursomc;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.arcanjo.cursomc.services.S3Service;
 
 
 
@@ -12,7 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
 	
-
+	@Autowired
+	private S3Service s3Service;
 
 
 	
@@ -24,7 +28,7 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		s3Service.uploadFile("C:\\Users\\Wesley\\Pictures\\Ainz_Anime_New.png");
 	}
 
 }
