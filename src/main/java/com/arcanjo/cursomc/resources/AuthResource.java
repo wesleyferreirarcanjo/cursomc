@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arcanjo.cursomc.dto.EmailDTO;
+import com.arcanjo.cursomc.dto.PasswordDTO;
 import com.arcanjo.cursomc.security.JWTUtil;
 import com.arcanjo.cursomc.security.UserSS;
 import com.arcanjo.cursomc.services.AuthService;
@@ -38,6 +39,16 @@ public class AuthResource {
 	public ResponseEntity<Void> forgot(@Valid @RequestBody EmailDTO objDto) {
 		
 		authService.sendNewPassword(objDto.getEmail());
+		return ResponseEntity.noContent().build();
+
+	}
+	
+	@PostMapping("/change_password")
+	public ResponseEntity<Void> forgot(@Valid @RequestBody PasswordDTO objDto, HttpServletResponse response) {
+		
+		authService.changePassword(objDto.getEmail(), objDto.getPassword(), objDto.getNewPassword());
+		String token = jwtUtil.generateToken(UserService.authenticated().getUsername());
+		response.addHeader("Authorization", "Bearer " + token);
 		return ResponseEntity.noContent().build();
 
 	}

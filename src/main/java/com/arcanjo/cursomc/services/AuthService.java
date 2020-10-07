@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.arcanjo.cursomc.domain.Cliente;
 import com.arcanjo.cursomc.repositories.ClienteRepository;
+import com.arcanjo.cursomc.security.UserSS;
+import com.arcanjo.cursomc.services.exceptions.AuthorizationException;
 import com.arcanjo.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -38,6 +40,26 @@ public class AuthService {
 		clienteRepository.save(cliente);
 		emailService.sendNewPasswordEmail(cliente, newPass);
 	}
+	
+	public void changePassword(String email, String password, String newPassword) {
+		
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+		UserSS user = UserService.authenticated();
+		
+		if(user == null || !cliente.getId().equals(user.getId()) ) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		if( !bCPE.matches(password, cliente.getSenha())) {
+			throw new AuthorizationException("Senha nao confere");
+		}
+		
+		
+		cliente.setSenha(bCPE.encode(newPassword));
+		clienteRepository.save(cliente);
+		
+	}
 
 	private String newPassword() {
 		char[] vet = new char[10];
@@ -60,5 +82,7 @@ public class AuthService {
 		}
 
 	}
+
+
 
 }
