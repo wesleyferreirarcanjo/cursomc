@@ -17,7 +17,6 @@ import com.arcanjo.cursomc.domain.ItemPedido;
 import com.arcanjo.cursomc.domain.PagamentoComBoleto;
 import com.arcanjo.cursomc.domain.Pedido;
 import com.arcanjo.cursomc.domain.enums.EstadoPagamento;
-import com.arcanjo.cursomc.domain.enums.Perfil;
 import com.arcanjo.cursomc.repositories.ItemPedidoRepository;
 import com.arcanjo.cursomc.repositories.PagamentoRepository;
 import com.arcanjo.cursomc.repositories.PedidoRepository;
