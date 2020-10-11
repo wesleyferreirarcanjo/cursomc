@@ -15,7 +15,6 @@ public class UserSS implements UserDetails {
 	private Integer id;
 	private String email;
 	private String senha;
-	@SuppressWarnings("unused")
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	
